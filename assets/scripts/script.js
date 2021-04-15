@@ -1,10 +1,5 @@
 // BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
-const charities= {
-    name: [],
-    website: [],
-    address: []
-};
-
+const charities = JSON.parse[window.localStorage.getItem("Bookmarks")] || [];
 
 var charityData;
 
@@ -138,17 +133,13 @@ function resultBoxGenerator(filteredData) {
                 var cWebsite = charity.Charity_Website;
                 var cAddress = appendedAddress;
 
-                charities.name.push(cName);
-                charities.website.push(cWebsite);
-                charities.address.push(cAddress);
+                charities.push({ name: cName, website: cWebsite, address: cAddress});
+
 
                 console.log(charities);
-
+                localStorage.setItem("Bookmarks", JSON.stringify(charities));
 
             });
-    
-
-    
 
       
         // Attach charity to body
