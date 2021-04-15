@@ -135,9 +135,13 @@ function resultBoxGenerator(filteredData) {
 
                 charities.push({ name: cName, website: cWebsite, address: cAddress});
 
+                function removeDuplicates(charities) {
+                    return Array.from(new Set(charities));
+                }
 
-                console.log(charities);
-                localStorage.setItem("Bookmarks", JSON.stringify(charities));
+                const newCharities = removeDuplicates(charities);
+                console.log(newCharities);
+                localStorage.setItem("Bookmarks", JSON.stringify(newCharities));
 
             });
 
