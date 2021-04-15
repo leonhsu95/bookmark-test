@@ -108,7 +108,7 @@ body{
   position: relative;
   display: block;
   float: right;
-  top: -205px;
+  top: -210px;
   font-size: 30px;
   color: #ea4848;
 }
@@ -117,7 +117,7 @@ body{
   position: relative;
   display: block;
   float: right;
-  top: -205px;
+  top: -210px;
   font-size: 30px;
   color: #ea4848;
 }
@@ -126,7 +126,7 @@ body{
   position: relative;
   display: block;
   float: right;
-  top: -205px;
+  top: -210px;
   font-size: 30px;
   color: #ea4848;
   transform: translateY(3px);
@@ -273,7 +273,7 @@ footer{
     position: relative;
     display: block;
     float: right;
-    top: -235px;
+    top: -240px;
     font-size: 25px;
     color: #ea4848;
   }
@@ -282,7 +282,7 @@ footer{
     position: relative;
     display: block;
     float: right;
-    top: -235px;
+    top: -240px;
     font-size: 25px;
     color: #ea4848;
   }
@@ -291,7 +291,7 @@ footer{
     position: relative;
     display: block;
     float: right;
-    top: -235px;
+    top: -240px;
     font-size: 25px;
     color: #ea4848;
     transform: translateY(3px);
