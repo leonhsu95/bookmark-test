@@ -1,6 +1,40 @@
 // BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
-const charities = JSON.parse[window.localStorage.getItem("Bookmarks")] || [];
+const charities = JSON.parse(localStorage.getItem("Bookmarks")) || [];
 var charityData;
+
+function renderBookmarks(){
+   
+    var bookmarkContainer = document.querySelector("#bookmark-list");
+
+    for (let i = 0; i < charities.length; i++) {
+       
+
+        var bookmarkHeading = document.createElement("h2");
+        bookmarkHeading.textContent= charities[i].name;
+
+        var bookmarkWebsite = document.createElement("p");
+        bookmarkWebsite.textContent= charities[i].website;
+
+        var bookmarkAddress = document.createElement("p");
+        bookmarkAddress.textContent= charities[i].address;
+       
+
+        var deleteBookmark= document.createElement("button");
+        deleteBookmark.textContent="X";
+
+        deleteBookmark.addEventListener("click", function(){
+            charities.splice(charities[i]);
+
+        })
+
+        
+        bookmarkContainer.append(bookmarkHeading, bookmarkWebsite, bookmarkAddress, deleteBookmark);
+        
+    }
+
+}
+
+renderBookmarks();
 
 function queryApiData() {
     var url = "https://data.gov.au/data/api/3/action/datastore_search?resource_id=eb1e6be4-5b13-4feb-b28e-388bf7c26f93";
@@ -135,10 +169,10 @@ function resultBoxGenerator(filteredData) {
                 bookmarkButton.setAttribute("class","hide");
                 containerDiv.appendChild(bookmarkFeedback);
 
-                  // Bookmark
-                  var bookmarkIcon = document.createElement("i");
-                  bookmarkIcon.id= "bookmarkIcon"+charity._id;
-                  bookmarkIcon.setAttribute("class","fas fa-bookmark bookmark-icon");
+                //   // Bookmark
+                //   var bookmarkIcon = document.createElement("i");
+                //   bookmarkIcon.id= "bookmarkIcon"+charity._id;
+                //   bookmarkIcon.setAttribute("class","fas fa-bookmark bookmark-icon");
                         
                   containerDiv.appendChild(bookmarkIcon);
 
@@ -190,4 +224,45 @@ document.getElementById("searchBtn").addEventListener("click", function() {
     resultBoxGenerator(filterApiData(document.getElementById("stateDropdown").value, document.getElementById("causeDropdown").value));
 
 });
+
+
+
+var charityFacts = [{
+    fact: "Charities have three primary income sources – government, giving and other income/revenue (which includes income from memberships, sales and investments). Around 1 in 4 charities depend on giving and philanthropy for 50% or more of their total revenue. Smaller charities tend to depend on giving and philanthropy for a higher proportion of their income compared to larger charities."
+},
+{
+    fact: "The most recent comprehensive study into overall giving behaviours was undertaken in 2016. An estimated 14.9 million Australian adults (80.8%) gave in total $12.5 billion to charities and NFP organisations over the 2015-16 financial year. The average donation was $764.08 and the median donation was $200."
+},
+{
+    fact: "For the 8th year running police were the most generous occupation, with 73.42% of individuals giving, followed by Machine Operators and School Principals. The highest average deductions were claimed by CEOs and Managing Directors, followed by Barristers and medical practitioners. (As of 2016-17 data)"
+},
+]
+var factBox = document.querySelector(".card-text")
+
+
+function onLoadFact(){
+    factBox.innerHTML = charityFacts[0].fact
+}
+
+onLoadFact()
+
+$('.repeat').click(function(){
+    if (factBox.innerHTML === charityFacts[0].fact){
+        factBox.innerHTML = charityFacts[1].fact
+    }
+    else if (factBox.innerHTML === charityFacts[1].fact){
+        factBox.innerHTML = charityFacts[2].fact
+    }
+    else if (factBox.innerHTML === charityFacts[2].fact){
+        factBox.innerHTML = charityFacts[0].fact
+    }
+    var classes =  $(this).parent().attr('class');
+        $(this).parent().attr('class', 'animate');
+        var indicator = $(this);
+        setTimeout(function(){ 
+        $(indicator).parent().addClass(classes);
+        }, 20);
+    });
+
+    
 
