@@ -1,3 +1,11 @@
+// BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
+const charities= {
+    name: [],
+    website: [],
+    address: []
+};
+
+
 var charityData;
 
 function queryApiData() {
@@ -5,6 +13,7 @@ function queryApiData() {
     fetch(url)
     .then(data=>{return data.json()})
     .then((res)=>{
+        console.log(res);
         charityData = res.result.records;
     });
 }
@@ -113,19 +122,40 @@ function resultBoxGenerator(filteredData) {
         }
         
         // Alternate Bookmark Button
-        var bookmarkButton = document.createElement("button");
-        var bookmarkText = document.createTextNode("Bookmark");
-        bookmarkButton.id = "bookmarkButton"+charity._id;
-        bookmarkButton.setAttribute("class", "bookmark-button");
-        bookmarkButton.setAttribute("type","button");
-        
 
-        containerDiv.appendChild(bookmarkButton);
-        bookmarkButton.appendChild(bookmarkText);
+            var bookmarkButton = document.createElement("button");
+            var bookmarkText = document.createTextNode("Bookmark");
+            bookmarkButton.id = "bookmarkButton"+charity._id;
+            bookmarkButton.setAttribute("class", "bookmark-button");
+            bookmarkButton.setAttribute("type","button");
+            containerDiv.appendChild(bookmarkButton);
+            bookmarkButton.appendChild(bookmarkText);          
 
+            // BOOKMARKING FIRST INSTANCE TO ARRAY
+            bookmarkButton.addEventListener("click", function(){
+               
+                var cName = charity.Charity_Legal_Name;
+                var cWebsite = charity.Charity_Website;
+                var cAddress = appendedAddress;
+
+                charities.name.push(cName);
+                charities.website.push(cWebsite);
+                charities.address.push(cAddress);
+
+                console.log(charities);
+
+
+            });
+    
+
+    
+
+      
         // Attach charity to body
-        
         searchResults.appendChild(containerDiv);
+
+       
+
     });
 }
 
@@ -167,17 +197,3 @@ document.getElementById("searchBtn").addEventListener("click", function() {
 
 });
 
-// BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
-var charities= {
-    name: [],
-    website: [],
-    address: []
-};
-
-
-// var searchContainer= document.getElementById("searchResultsContainer");
-
-// searchContainer.addEventListener('submit', function(event){
-//     event.preventDefault();
-//     console.log("Hi");
-// });
