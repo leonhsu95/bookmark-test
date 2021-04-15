@@ -1,40 +1,8 @@
 // BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
 const charities = JSON.parse(localStorage.getItem("Bookmarks")) || [];
+const charName = JSON.parse(localStorage.getItem("charBookmarks")) || [];
 var charityData;
 
-function renderBookmarks(){
-   
-    var bookmarkContainer = document.querySelector("#bookmark-list");
-
-    for (let i = 0; i < charities.length; i++) {
-       
-
-        var bookmarkHeading = document.createElement("h2");
-        bookmarkHeading.textContent= charities[i].name;
-
-        var bookmarkWebsite = document.createElement("p");
-        bookmarkWebsite.textContent= charities[i].website;
-
-        var bookmarkAddress = document.createElement("p");
-        bookmarkAddress.textContent= charities[i].address;
-       
-
-        var deleteBookmark= document.createElement("button");
-        deleteBookmark.textContent="X";
-
-        deleteBookmark.addEventListener("click", function(){
-            charities.splice(charities[i]);
-
-        })
-
-        
-        bookmarkContainer.append(bookmarkHeading, bookmarkWebsite, bookmarkAddress, deleteBookmark);
-        
-    }
-
-}
-
-renderBookmarks();
 
 function queryApiData() {
     var url = "https://data.gov.au/data/api/3/action/datastore_search?resource_id=eb1e6be4-5b13-4feb-b28e-388bf7c26f93";
@@ -159,9 +127,11 @@ function resultBoxGenerator(filteredData) {
                 var cAddress = appendedAddress;
 
                 charities.push({ name: cName, website: cWebsite, address: cAddress});
+                charName.push(cName);
 
                 console.log(charities);
                 localStorage.setItem("Bookmarks", JSON.stringify(charities));
+                localStorage.setItem("charBookmarks", JSON.stringify(charName));
 
                 const bookmarkFeedback = document.createElement("p");
                 bookmarkFeedback.textContent= cName+" bookmarked!";
@@ -174,7 +144,7 @@ function resultBoxGenerator(filteredData) {
                 //   bookmarkIcon.id= "bookmarkIcon"+charity._id;
                 //   bookmarkIcon.setAttribute("class","fas fa-bookmark bookmark-icon");
                         
-                  containerDiv.appendChild(bookmarkIcon);
+                //   containerDiv.appendChild(bookmarkIcon);
 
             });
 
