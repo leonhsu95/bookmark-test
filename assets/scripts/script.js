@@ -1,6 +1,5 @@
 // BOOKMARK SAVES CURRENT SEARCH INTO ARRAY
 const charities = JSON.parse[window.localStorage.getItem("Bookmarks")] || [];
-
 var charityData;
 
 function queryApiData() {
@@ -61,15 +60,7 @@ function resultBoxGenerator(filteredData) {
         //Create container for charity data
         var containerDiv = document.createElement('div');
         containerDiv.id = "charity"+charity._id;
-        containerDiv.setAttribute("class", "charity-container");
-
-        // Bookmark
-        var bookmarkIcon = document.createElement("i");
-        bookmarkIcon.id= "bookmarkIcon"+charity._id;
-        bookmarkIcon.setAttribute("class","fas fa-bookmark bookmark-icon");
-
-        containerDiv.appendChild(bookmarkIcon);
- 
+        containerDiv.setAttribute("class", "charity-container"); 
 
         //Charity name
         var nameHeader = document.createElement('h3');
@@ -116,7 +107,7 @@ function resultBoxGenerator(filteredData) {
             containerDiv.appendChild(mapButton);
         }
         
-        // Alternate Bookmark Button
+        // Bookmark Button
 
             var bookmarkButton = document.createElement("button");
             var bookmarkText = document.createTextNode("Bookmark");
@@ -126,7 +117,7 @@ function resultBoxGenerator(filteredData) {
             containerDiv.appendChild(bookmarkButton);
             bookmarkButton.appendChild(bookmarkText);          
 
-            // BOOKMARKING FIRST INSTANCE TO ARRAY
+            // BOOKMARKING TO ARRAY
             bookmarkButton.addEventListener("click", function(){
                
                 var cName = charity.Charity_Legal_Name;
@@ -135,13 +126,21 @@ function resultBoxGenerator(filteredData) {
 
                 charities.push({ name: cName, website: cWebsite, address: cAddress});
 
-                function removeDuplicates(charities) {
-                    return Array.from(new Set(charities));
-                }
+                console.log(charities);
+                localStorage.setItem("Bookmarks", JSON.stringify(charities));
 
-                const newCharities = removeDuplicates(charities);
-                console.log(newCharities);
-                localStorage.setItem("Bookmarks", JSON.stringify(newCharities));
+                const bookmarkFeedback = document.createElement("p");
+                bookmarkFeedback.textContent= cName+" bookmarked!";
+                bookmarkFeedback.setAttribute("class", "bookmarkFeedback");
+                bookmarkButton.setAttribute("class","hide");
+                containerDiv.appendChild(bookmarkFeedback);
+
+                  // Bookmark
+                  var bookmarkIcon = document.createElement("i");
+                  bookmarkIcon.id= "bookmarkIcon"+charity._id;
+                  bookmarkIcon.setAttribute("class","fas fa-bookmark bookmark-icon");
+                        
+                  containerDiv.appendChild(bookmarkIcon);
 
             });
 
