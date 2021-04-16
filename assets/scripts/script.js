@@ -129,9 +129,23 @@ function resultBoxGenerator(filteredData) {
                 charities.push({ name: cName, website: cWebsite, address: cAddress});
                 charName.push(cName);
 
-                console.log(charities);
-                localStorage.setItem("Bookmarks", JSON.stringify(charities));
-                localStorage.setItem("charBookmarks", JSON.stringify(charName));
+            // UNIQUE VALUES FOR ARRAY
+                
+                const map = {};
+                const uniqueCharities = [];
+
+                charities.forEach(el => {
+                    if(!map[JSON.stringify(el)]){
+                       map[JSON.stringify(el)] = true;
+                       uniqueCharities.push(el);
+                 }
+              });
+
+                const getUniqueCharName = (array) => ([...new Set(array)]);
+                const uniqueCharName = getUniqueCharName(charName);
+
+                localStorage.setItem("Bookmarks", JSON.stringify(uniqueCharities));
+                localStorage.setItem("charBookmarks", JSON.stringify(uniqueCharName));
 
                 const bookmarkFeedback = document.createElement("p");
                 bookmarkFeedback.textContent= cName+" bookmarked!";

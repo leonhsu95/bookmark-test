@@ -4,15 +4,16 @@ const charName = JSON.parse(localStorage.getItem("charBookmarks")) || [];
 
 function renderBookmarks(){
    
-    var bookmarkContainer = document.querySelector("#bookmark-list");
-    console.log(charName);
+    var bookmarkListEl = document.querySelector("#bookmark-list");
 
     for (let i = 0; i < charities.length; i++) {
+
+        var bookmarkContainer = document.createElement("div");
+        bookmarkContainer.id = "charityBookmark"+i;
        
         var bookmarkHeading = document.createElement("h2");
         bookmarkHeading.textContent= charities[i].name;
         
-
         var bookmarkWebsite = document.createElement("p");
         bookmarkWebsite.textContent= charities[i].website;
 
@@ -24,6 +25,7 @@ function renderBookmarks(){
         deleteBookmark.textContent="X";
 
         deleteBookmark.addEventListener("click", function removeBookmark(){
+        location.reload();
         var index = charName.indexOf(charities[i].name);
         console.log(index);
         
@@ -36,17 +38,13 @@ function renderBookmarks(){
         localStorage.setItem("Bookmarks", JSON.stringify(charities));
         localStorage.setItem("charBookmarks", JSON.stringify(charName));
         
-        console.log(charities);
-        console.log(charName);
-
-
+        document.getElementById("charityBookmark"+i).innerHTML="";
 
         })
 
         
-
-        
-        bookmarkContainer.append(bookmarkHeading, bookmarkWebsite, bookmarkAddress, deleteBookmark);
+        bookmarkListEl.append(bookmarkContainer);
+        bookmarkContainer.append(bookmarkHeading, bookmarkWebsite, bookmarkAddress, deleteBookmark)
         
     }
 
