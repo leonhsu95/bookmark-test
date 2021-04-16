@@ -9,7 +9,7 @@ function queryApiData() {
     fetch(url)
     .then(data=>{return data.json()})
     .then((res)=>{
-        console.log(res);
+        // console.log(res);
         charityData = res.result.records;
     });
 }
